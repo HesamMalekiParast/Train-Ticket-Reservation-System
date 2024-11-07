@@ -9,4 +9,9 @@ def  init_db():
 def sql_table(conn):
     c = conn.cursor()
     c.execute('''CREATE TABLE IF NOT EXISTS stocks
-    (train_id int, trans text, symbol text, qty real, price real)''')
+    (train_id int, train_name varchar, departure_time date, destination varchar(254), availableseats int)''')
+    conn.commit()
+    c.execute("SELECT * FROM stocks")
+    print(c.fetchall())
+conn=init_db()
+sql_table(conn)
