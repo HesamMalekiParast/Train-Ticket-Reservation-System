@@ -6,27 +6,18 @@ DB_FILE = 'train.db'
 
 
 def connect_db():
-    """
-    Connect to the SQLite database and return the connection and cursor.
-    """
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
     return conn, cursor
 
 
 def close_db(conn):
-    """
-    Close the database connection.
-    """
     conn.close()
 
 class Train:
 
     @staticmethod
     def view_all_trains():
-        """
-        Retrieve all available trains using a raw SQL query.
-        """
         conn, cursor = connect_db()
 
         # Raw SQL query to select all trains
@@ -42,13 +33,6 @@ class Train:
 
     @staticmethod
     def search_trains(destination, departure_date):
-        """
-        Search for trains by destination and departure date.
-
-        :param destination: The destination city to search for.
-        :param departure_date: The exact date and time (string in 'YYYY-MM-DD HH:MM:SS' format) of departure.
-        :return: List of matching trains.
-        """
         conn, cursor = connect_db()
 
         try:
@@ -60,7 +44,7 @@ class Train:
             return []
 
         # SQL query with parameters to filter by destination and departure_time
-        query = """
+        query = f"""
         SELECT * FROM trains
         WHERE destination = ? AND departure_time = ?
         """
